@@ -1,0 +1,52 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+
+function GenerateQrForm() {
+  const [qrCodeId, setQrCodeId] = useState('');
+  const [url, setUrl] = useState('');
+  const [qrCodeUrl, setQrCodeUrl] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('https://your-backend-url.com/api/generate', {
+        qrCodeId,
+        url,
+      });
+      setQrCodeUrl(response.data.qrCodeUrl);
+      alert(response.data.message);
+    } catch (error) {
+      console.error('Error generating QR Code:', error);
+    }
+  };
+
+  return (
+    <div>
+      <h2>Generate QR Code</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="QR Code ID"
+          value={qrCodeId}
+          onChange={(e) => setQrCodeId(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="URL"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+        />
+        <button type="submit">Generate</button>
+      </form>
+      {qrCodeUrl && (
+        <div>
+          <h3>QR Code:</h3>
+          <img src={qrCodeUrl} alt="Generated QR Code" />
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default GenerateQrForm;
