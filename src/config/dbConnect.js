@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const connectionDatabase = async()=>{
     try {
-         await mongoose.connect("mongodb://localhost:27017/qrDatabase", {
+         await mongoose.connect("mongodb+srv://temploginoffice:PjXUP5BQwMxU3wSS@cluster0.leggj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
        });
          console.log("Database is connected")
     } catch (error) {
